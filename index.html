@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Generate Mp4 Video Index</title>
+</head>
+<body>
+<video id="video"  width="320" height="240" controls autoplay>
+<source src="./video.mp4" type="video/mp4">
+</video>
+<script>
+var counter = 0;
+var arr = [
+"./video.mp4",
+"./video2.mp4",
+]
+var player=document.getElementsByTagName('video')[0];
+player.addEventListener('ended',myHandler,false);
+var fullScrn = true;
+var isPlaying = true;
+var playbackRate = 2;
+player.playbackRate = playbackRate;
+function togglePlay() {
+    if (isPlaying) {
+        player.pause();
+        this.isPlaying = false;
+    } else {
+        player.play();
+        this.isPlaying = true;
+    }
+}
+function myHandler(e) {
+    counter++;
+    player.src=arr[counter];
+    player.playbackRate = playbackRate;
+}
+window.addEventListener("keydown", function(event){
+    if (event.keyCode == 32) {
+        event.preventDefault();
+        togglePlay(isPlaying);
+    }
+    // 78 = n
+    if (event.keyCode == 78) {
+        counter++;
+        player.src=arr[counter];
+        player.playbackRate = playbackRate;
+    }
+    // 80 = p
+    if (event.keyCode == 80) {
+        counter--;
+        player.src=arr[counter];
+        player.playbackRate = playbackRate;
+    }
+    // 70 = f
+    if (event.keyCode == 70) {
+       if (fullScrn) {
+            document.querySelector('video').requestFullscreen();
+            fullScrn = false;
+        } else {
+            document.exitFullscreen();
+            fullScrn = true;
+       }
+    }
+    // 34 = PageDown
+    if (event.keyCode == 34) {
+        event.preventDefault();
+        playbackRate -= 0.5;
+        player.playbackRate = playbackRate;
+    }
+    // 33 = PageDown
+    if (event.keyCode == 33) {
+        event.preventDefault();
+        playbackRate += 0.5;
+        player.playbackRate = playbackRate;
+    }
+    // 82 = r (remaining videos)
+    if (event.keyCode == 82) {
+        event.preventDefault();
+        for (var i = counter; i < arr.length-0; i++) console.log("i=",i,arr[i])
+    }
+    // 84 = t (total time in the folder of videos)
+    if (event.keyCode == 84) {
+        event.preventDefault();
+        console.log("h=",0 );
+        console.log("m=",13 );
+        console.log("s=",10 );
+    }
+});
+</script>
+</body>
+</html>
