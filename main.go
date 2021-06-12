@@ -11,6 +11,8 @@ import (
 //video.mp4  -> 54 sec
 //video2.mp4 -> 736 sec
 
+// go get github.com/pillash/mp4util
+
 func main() {
 	files, _ := filepath.Glob("*.mp4")
 	sum := 0
